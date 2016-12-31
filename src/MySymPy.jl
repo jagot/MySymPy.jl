@@ -1,5 +1,5 @@
 module MySymPy
 
-# package code goes here
+include("walk.jl")
 
 end # module

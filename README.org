@@ -1,0 +1,40 @@
+#+TITLE: MySymPy
+#+AUTHOR: Stefanos Carlström
+#+EMAIL: stefanos.carlstrom@gmail.com
+
+[[https://travis-ci.org/jagot/MySymPy.jl][https://travis-ci.org/jagot/MySymPy.jl.svg?branch=master]]
+[[https://coveralls.io/github/jagot/MySymPy.jl?branch=master][https://coveralls.io/repos/jagot/MySymPy.jl/badge.svg?branch=master&service=github]]
+[[http://codecov.io/github/jagot/MySymPy.jl?branch=master][http://codecov.io/github/jagot/MySymPy.jl/coverage.svg?branch=master]]
+
+A few personal routines to aid in symbolic computations.
+
+Example to re-express product of two Gaussians as one:
+#+BEGIN_SRC julia :session t :results output :exports both
+  using SymPy
+  using MySymPy
+
+  @syms x N a b c d
+
+  ex = N^2*exp(-a*x^2 + c)*exp(-b*x^2 + d)
+  println()
+  walk_expression(powsimp(ex)) do eee
+      trans_gaussian(eee, x)
+  end
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+
+
+
+(x,N,a,b,c,d)
+
+         2           2    
+ 2  - a⋅x  + c  - b⋅x  + d
+N ⋅ℯ          ⋅ℯ
+
+             2        
+ 2  c + d - x ⋅(a + b)
+N ⋅ℯ
+#+end_example
+
